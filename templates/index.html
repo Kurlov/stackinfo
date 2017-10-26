@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <label>Get posts via oauth</label>
+      <br>
+      <a href={{ url_for('oauth_authorize') }} type="button" class="btn btn-primary">Get my posts</a>
+    </div>
+    <div class="col-sm">
+      <form action="http://localhost:5000/posts" method="GET">
+        <div class="form-group">
+          <label for="user_id">Get posts by user id</label>
+          <input type="text" class="form-control" name="user_id" id="user_id" placeholder="User id">
+        </div>
+        <input type="hidden" name="page" value="1" />
+        <button type="submit" class="btn btn-primary">Get posts</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

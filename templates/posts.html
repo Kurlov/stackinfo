@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      User info:
+      {% if user %}
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th scope="row">Name</th>
+            <td>{{ user.display_name }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Reputation</th>
+            <td>{{ user.reputation }}</td>
+          </tr>
+          <tr>
+            <th scope="row">ID</th>
+            <td>{{ user.user_id }}</td>
+          </tr>
+
+          {% if user.reputation_change_year %}
+            <tr>
+              <th scope="row">reputation_change_year</th>
+              <td>{{ user.reputation_change_year }}</td>
+            </tr>
+          {% endif %}
+
+          {% if user.reputation_change_quarter %}
+            <tr>
+              <th scope="row">reputation_change_quarter</th>
+              <td>{{ user.reputation_change_quarter }}</td>
+            </tr>
+          {% endif %}
+
+          {% if user.reputation_change_month %}
+            <tr>
+              <th scope="row">reputation_change_month</th>
+              <td>{{ user.reputation_change_month }}</td>
+            </tr>
+          {% endif %}
+
+          {% if user.reputation_change_week %}
+            <tr>
+              <th scope="row">reputation_change_week</th>
+              <td>{{ user.reputation_change_week }}</td>
+            </tr>
+          {% endif %}
+
+          {% if user.reputation_change_day %}
+            <tr>
+              <th scope="row">reputation_change_day</th>
+              <td>{{ user.reputation_change_day }}</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="alert alert-warning" role="alert">
+        No information available!
+      </div>
+      {% endif %}
+    </div>
+
+
+    <div class="col-sm">
+      <div class="col-sm-4">
+        Posts:
+      </div>
+      {% if posts %}
+      <ul class="list-group">
+        {% for post in posts %}
+        <li class="list-group-item disabled">
+          <a href="{{ post.link }}">Post id: {{ post.post_id }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="alert alert-warning" role="alert">
+        Have not found any post!
+      </div>
+      {% endif %}
+
+      <nav aria-label="...">
+        <ul class="pagination pagination-lg">
+          {% if has_less %}
+          <li class="page-item">
+          {% else %}
+          <li class="page-item disabled">
+          {% endif %}
+            <a class="page-link" href="{{ url_for('posts', user_id=user_id, page=(page|int-1)) }}" tabindex="-1">Previous</a>
+          </li>
+          {% if has_more %}
+          <li class="page-item">
+          {% else %}
+          <li class="page-item disabled">
+          {% endif %}
+            <a class="page-link" href="{{ url_for('posts', user_id=user_id, page=(page|int+1)) }}">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
